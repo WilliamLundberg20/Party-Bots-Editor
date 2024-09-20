@@ -5,8 +5,8 @@ bl_info = {
     "blender": (4, 2, 1),
     "location": "View3D > Sidebar > Party Bots Editor",
     "description": (
-        "A custom tool for exporting collections and object data to a .party file, "
-        "with options for custom transformations and material mappings."
+        "klicka på N tangenten"
+
     ),
     "category": "Object",
     "tracker_url": "https://discord.gg/HdtZgu7A",
