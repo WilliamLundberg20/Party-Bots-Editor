@@ -106,7 +106,7 @@ class ExportToParty(bpy.types.Operator):
                         file.write("  [info]\n")
                         for key, value in obj.items():
                             if "color" in key.lower():
-                                file.write(f'  {key}: {value}\n')
+                                file.write(f'  {key} {value}\n')
 
             self.report({'INFO'}, f"Data exported to {file_path}")
         except Exception as e:
