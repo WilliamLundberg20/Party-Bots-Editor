@@ -4,10 +4,7 @@ bl_info = {
     "version": (0, 0, 1),
     "blender": (4, 2, 1),
     "location": "View3D > Sidebar > Party Bots Editor",
-    "description": (
-        "klicka på N tangenten"
-
-    ),
+    "description": "Click N to open the sidebar.",
     "category": "Object",
     "tracker_url": "https://discord.gg/HdtZgu7A",
 }
@@ -21,7 +18,7 @@ import getpass
 class SimplePanelBase:
     bl_space_type = 'VIEW_3D'
     bl_region_type = 'UI'
-    bl_category = 'Party Bots Editor Add-on'
+    bl_category = 'Party Bots Editor'
 
 # Panel: Text Input
 class SimplePanelTab1(SimplePanelBase, bpy.types.Panel):
@@ -48,7 +45,7 @@ class SimplePanelInfo(SimplePanelBase, bpy.types.Panel):
         layout.label(text="Party Bots Editor Add-on")
         layout.label(text=f"Author: {bl_info['author']}")
         layout.label(text=f"Version: {'.'.join(map(str, bl_info['version']))}")
-        layout.label(text="Description: i alla objekt custom properties settings")
+        layout.label(text="Description: Custom properties for objects.")
         layout.label(text=bl_info['description'])
         layout.operator("wm.url_open", text="Report Issue").url = bl_info['tracker_url']
 
