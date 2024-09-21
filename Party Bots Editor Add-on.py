@@ -1,7 +1,7 @@
 bl_info = {
     "name": "Party Bots Editor Add-on",
     "author": "William",
-    "version": (0, 0, 1),
+    "version": (0, 0, 2),
     "blender": (4, 2, 1),
     "location": "View3D > Sidebar > Party Bots Editor",
     "description": "Click N to open the sidebar.",
@@ -82,10 +82,14 @@ class ExportToParty(bpy.types.Operator):
                     file.write(f" [platforms]\n")
                     for obj in collection.objects:
                         loc = obj.location
+                        rot = obj.rotation_euler  # Correct rotation handling
                         sca = obj.scale
                         Xsize = loc.x / 2
                         Ysize = loc.z / 2 + 15
                         Zsize = loc.y / 2
+                        Xrot = rot.x * -115 / 2
+                        Yrot = rot.z * -115 / 2
+                        Zrot = rot.y * -115 / 2
 
                         file.write(f' {{{obj.name}}}\n')
                         file.write(f"  [layout]\n")
@@ -95,6 +99,8 @@ class ExportToParty(bpy.types.Operator):
                         file.write(f"  size {sca.x:.1f}\n")
                         file.write(f"  vertical_size {sca.z:.1f}\n")
 
+                        # Rotation output
+
                         for key, value in obj.items():
                             if "material" in key.lower():
                                 materials = {1: "grass", 2: "snow", 3: "slime", 4: "steel", 5: "wood"}
@@ -102,11 +108,20 @@ class ExportToParty(bpy.types.Operator):
                                     file.write(f"  material {materials[value]}\n")
                             if "spawn_point" in key.lower():
                                 file.write(f"  spawn_point {'true' if value else 'false'}\n")
+                            if "id" in key.lower():
+                                file.write(f'  {key} {value}\n')
+                            if "tags" in key.lower():
+                                file.write(f'  {key} {value}\n')
+
+                        file.write(f"  x_rotation {Xrot:.0f}\n")
+                        file.write(f"  y_rotation {Yrot:.0f}\n")
+                        file.write(f"  z_rotation {Zrot:.0f}\n")
 
                         file.write("  [info]\n")
                         for key, value in obj.items():
                             if "color" in key.lower():
                                 file.write(f'  {key} {value}\n')
+
 
             self.report({'INFO'}, f"Data exported to {file_path}")
         except Exception as e:
